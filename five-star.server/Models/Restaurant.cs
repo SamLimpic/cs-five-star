@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using five_star.server.Interfaces;
 
 namespace five_star.server.Models
@@ -13,9 +14,14 @@ namespace five_star.server.Models
 
         public string CreatorId { get; set; }
 
+        [Required]
+        [MinLength(1)]
         public string Name { get; set; }
 
+        [Required]
+        [MinLength(1)]
         public string Location { get; set; }
 
+        public Profile Owner { get; set; }
     }
 }

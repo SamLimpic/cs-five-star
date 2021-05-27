@@ -33,7 +33,7 @@ namespace five_star.server.Services
 
         public Restaurant Create(Restaurant data)
         {
-            throw new NotImplementedException();
+            return _repo.Create(data);
         }
 
 

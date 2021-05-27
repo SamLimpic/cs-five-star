@@ -5,6 +5,7 @@ using CodeWorks.Auth0Provider;
 using five_star.server.Interfaces;
 using five_star.server.Models;
 using five_star.server.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,9 +48,21 @@ namespace five_star.server.Controllers
 
 
         [HttpPost]
-        public Task<ActionResult<Restaurant>> Create([FromBody] Restaurant newRestaurant)
+        [Authorize]
+        public async Task<ActionResult<Restaurant>> Create([FromBody] Restaurant data)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                data.CreatorId = userInfo.Id;
+                Restaurant newRestaurant = _service.Create(data);
+                newRestaurant.Owner = userInfo;
+                return Ok(newRestaurant);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
 

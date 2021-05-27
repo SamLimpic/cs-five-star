@@ -49,7 +49,7 @@ namespace five_star.server.Repositories
                 ";
             return _db.Query<Restaurant, Account, Restaurant>(sql, (restaurant, account) =>
             {
-                // restaurant.Creator = account;
+                restaurant.Owner = account;
                 return restaurant;
             }
             , new { id }, splitOn: "id").FirstOrDefault();

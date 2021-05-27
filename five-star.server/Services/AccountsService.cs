@@ -12,7 +12,10 @@ namespace five_star.server.Services
         {
             _repo = repo;
         }
-        internal Account GetOrCreateAccount(Account userInfo)
+
+
+
+        public Account GetOrCreateAccount(Account userInfo)
         {
             Account account = _repo.GetById(userInfo.Id);
             if (account == null)
@@ -20,6 +23,30 @@ namespace five_star.server.Services
                 return _repo.Create(userInfo);
             }
             return account;
+        }
+
+
+
+        public string GetProfileEmailById(string id)
+        {
+            return _repo.GetById(id).Email;
+        }
+
+
+
+        public Account GetProfileByEmail(string email)
+        {
+            return _repo.GetByEmail(email);
+        }
+
+
+
+        public Account Edit(Account edit, string userEmail)
+        {
+            Account original = GetProfileByEmail(userEmail);
+            original.Name = edit.Name.Length > 0 ? edit.Name : original.Name;
+            original.Picture = edit.Picture.Length > 0 ? edit.Picture : original.Picture;
+            return _repo.Edit(original);
         }
     }
 }

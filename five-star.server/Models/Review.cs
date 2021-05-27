@@ -15,12 +15,18 @@ namespace five_star.server.Models
 
         public string RestaurantId { get; set; }
 
+        [Required]
+        [MinLength(1)]
         public string Title { get; set; }
 
+        [Required]
+        [MinLength(1)]
         public string Body { get; set; }
 
         [Range(1, 5)]
         public int Rating { get; set; }
+
+        public Profile Creator { get; set; }
 
     }
 }
