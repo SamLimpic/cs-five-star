@@ -93,9 +93,17 @@ namespace five_star.server
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "five_star.server v1"));
+
+                // TODO[epic=Auth] Invoke your Cors
+                app.UseCors("CorsDevPolicy");
+
             }
 
             app.UseHttpsRedirection();
+
+            // TODO Add Default and Static Files
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
