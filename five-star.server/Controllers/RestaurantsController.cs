@@ -29,7 +29,7 @@ namespace five_star.server.Controllers
             try
             {
                 List<Restaurant> restaurants = _service.GetAll();
-                return restaurants;
+                return Ok(restaurants);
             }
             catch (Exception e)
             {
@@ -42,7 +42,15 @@ namespace five_star.server.Controllers
         [HttpGet("{id}")]
         public ActionResult<Restaurant> GetById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Restaurant restaurant = _service.GetById(id);
+                return Ok(restaurant);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
 
@@ -56,7 +64,7 @@ namespace five_star.server.Controllers
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 data.CreatorId = userInfo.Id;
                 Restaurant newRestaurant = _service.Create(data);
-                newRestaurant.Owner = userInfo;
+                newRestaurant.Creator = userInfo;
                 return Ok(newRestaurant);
             }
             catch (Exception e)
@@ -68,6 +76,7 @@ namespace five_star.server.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult<Restaurant>> Update([FromBody] Restaurant edit, int id)
         {
             try
@@ -86,7 +95,7 @@ namespace five_star.server.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Restaurant>> Delete(int id)
+        public async Task<ActionResult<string>> Delete(int id)
         {
             try
             {

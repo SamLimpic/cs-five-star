@@ -8,7 +8,7 @@ namespace five_star.server.Interfaces
         List<T> GetAll();
         T GetById(int id);
         T Create(T data);
-        bool Update(T data);
-        bool Delete(int id);
+        T Update(T data);
+        void Delete(int id);
     }
 }

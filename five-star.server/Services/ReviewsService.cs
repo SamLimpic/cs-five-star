@@ -48,14 +48,11 @@ namespace five_star.server.Services
         public void Delete(int id, string creatorId)
         {
             Review review = GetById(id);
-            // if (review.CreatorId != creatorId)
-            // {
-            //     throw new Exception("You cannot delete another users Review");
-            // }
-            if (!_repo.Delete(id))
+            if (review.CreatorId != creatorId)
             {
-                throw new Exception("Something has gone wrong...");
-            };
+                throw new Exception("You cannot delete another users Review");
+            }
+            _repo.Delete(id);
         }
     }
 }

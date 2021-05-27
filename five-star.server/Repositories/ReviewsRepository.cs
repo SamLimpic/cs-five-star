@@ -72,7 +72,7 @@ namespace five_star.server.Repositories
 
 
 
-        public bool Update(Review data)
+        public Review Update(Review edit)
         {
             string sql = @"
             UPDATE reviews
@@ -82,18 +82,17 @@ namespace five_star.server.Repositories
                 owner = @Owner,
                 rating = @Rating
             WHERE id = @id";
-            int affectedRows = _db.Execute(sql, data);
-            return affectedRows == 1;
+            _db.Execute(sql, edit);
+            return edit;
         }
 
 
 
-        public bool Delete(int id)
+        public void Delete(int id)
         {
             string sql = "DELETE FROM reviews WHERE id = @id LIMIT 1";
-            int affectedRows = _db.Execute(sql, new { id });
-            return affectedRows == 1;
-        }
+            _db.Execute(sql, new { id });
 
+        }
     }
 }

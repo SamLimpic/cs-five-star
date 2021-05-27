@@ -73,7 +73,7 @@ namespace five_star.server.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Review>> Delete(int id)
+        public async Task<ActionResult<string>> Delete(int id)
         {
             try
             {

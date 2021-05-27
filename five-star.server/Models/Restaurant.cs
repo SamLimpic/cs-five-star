@@ -22,6 +22,6 @@ namespace five_star.server.Models
         [MinLength(1)]
         public string Location { get; set; }
 
-        public Profile Owner { get; set; }
+        public Profile Creator { get; set; }
     }
 }

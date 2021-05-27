@@ -23,14 +23,15 @@ namespace five_star.server.Repositories
         {
             string sql = @"
                 SELECT
-                g.*
-                a.*
-                FROM restaurants g
-                JOIN accounts a ON g.___ = a.Id
+                r.*
+                a.name,
+                a.picture
+                FROM restaurants r
+                JOIN accounts a ON r.creatorId = a.id
                 ";
             return _db.Query<Restaurant, Account, Restaurant>(sql, (restaurant, account) =>
             {
-                // restaurant.Creator = account;
+                restaurant.Creator = account;
                 return restaurant;
             }, splitOn: "id").ToList();
         }
@@ -41,15 +42,16 @@ namespace five_star.server.Repositories
         {
             string sql = @"
                 SELECT 
-                g.*,
-                a.* 
-                FROM restaurants g
-                JOIN accounts a ON g.creatorId = a.id
-                WHERE g.id = @id
+                r.*,
+                a.name,
+                a.picture 
+                FROM restaurants r
+                JOIN accounts a ON r.creatorId = a.id
+                WHERE r.id = @id
                 ";
             return _db.Query<Restaurant, Account, Restaurant>(sql, (restaurant, account) =>
             {
-                restaurant.Owner = account;
+                restaurant.Creator = account;
                 return restaurant;
             }
             , new { id }, splitOn: "id").FirstOrDefault();
@@ -72,27 +74,24 @@ namespace five_star.server.Repositories
 
 
 
-        public bool Update(Restaurant data)
+        public Restaurant Update(Restaurant edit)
         {
             string sql = @"
             UPDATE restaurants
             SET
-                creatorId = @CreatorId,
                 name = @Name,
                 location = @Location
-            WHERE id = @id";
-            int affectedRows = _db.Execute(sql, data);
-            return affectedRows == 1;
+            WHERE id = @Id";
+            _db.Execute(sql, edit);
+            return edit;
         }
 
 
 
-        public bool Delete(int id)
+        public void Delete(int id)
         {
             string sql = "DELETE FROM restaurants WHERE id = @id LIMIT 1";
-            int affectedRows = _db.Execute(sql, new { id });
-            return affectedRows == 1;
+            _db.Execute(sql, new { id });
         }
-
     }
 }

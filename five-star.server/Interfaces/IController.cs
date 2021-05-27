@@ -10,7 +10,7 @@ namespace five_star.server.Interfaces
         ActionResult<T> GetById(int id);
         Task<ActionResult<T>> Create(T data);
         Task<ActionResult<T>> Update(T data, int id);
-        Task<ActionResult<T>> Delete(int id);
+        Task<ActionResult<string>> Delete(int id);
 
     }
 }
