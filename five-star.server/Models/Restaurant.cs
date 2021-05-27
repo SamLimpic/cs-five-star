@@ -11,11 +11,11 @@ namespace five_star.server.Models
 
 
 
+        public string CreatorId { get; set; }
+
         public string Name { get; set; }
 
         public string Location { get; set; }
-
-        public string Owner { get; set; }
 
     }
 }

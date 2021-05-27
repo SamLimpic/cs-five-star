@@ -11,12 +11,13 @@ namespace five_star.server.Models
         public DateTime UpdatedAt { get; set; }
 
 
+        public string CreatorId { get; set; }
+
+        public string RestaurantId { get; set; }
 
         public string Title { get; set; }
 
         public string Body { get; set; }
-
-        public string Owner { get; set; }
 
         [Range(1, 5)]
         public int Rating { get; set; }

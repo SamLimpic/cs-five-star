@@ -61,9 +61,9 @@ namespace five_star.server.Repositories
         {
             string sql = @"
                 INSERT INTO restaurants
-                (name, location, owner)
+                (creatorId, name, location)
                 VALUES
-                (@Name, @Location, @Owner)
+                (@CreatorId, @Name, @Location)
                 SELECT LAST_INSERT_ID()
                 ";
             data.Id = _db.ExecuteScalar<int>(sql, data);
@@ -77,9 +77,9 @@ namespace five_star.server.Repositories
             string sql = @"
             UPDATE restaurants
             SET
+                creatorId = @CreatorId,
                 name = @Name,
-                location = @Location,
-                owner = @Owner
+                location = @Location
             WHERE id = @id";
             int affectedRows = _db.Execute(sql, data);
             return affectedRows == 1;
