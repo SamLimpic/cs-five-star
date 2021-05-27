@@ -59,8 +59,12 @@ namespace five_star.server
            });
 
             services.AddScoped<AccountsService>();
+            services.AddTransient<RestaurantsService>();
+            services.AddTransient<ReviewsService>();
 
             services.AddScoped<AccountsRepository>();
+            services.AddTransient<RestaurantsRepository>();
+            services.AddTransient<ReviewsRepository>();
 
             // TODO[epic=DB] database Connection
             services.AddScoped<IDbConnection>(x => CreateDbConnection());
